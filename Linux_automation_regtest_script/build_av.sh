@@ -24,12 +24,12 @@ make socfpga_arria5_socdk.dtb
 make -j 12 modules
 
 echo "Move compiled to folder\n"
-mkdir -p /build/linux_regtest/arm/av/5.16
+mkdir -p /build/linux_regtest/arm/5.16/av
 
-cp arch/arm/boot/zImage /build/linux_regtest/arm/av/5.16
-cp arch/arm/boot/dts/socfpga_arria5_socdk.dtb /build/linux_regtest/arm/av/5.16
-cp drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/av/5.16
-cp drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/av/5.16
-cp drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/av/5.16
+cp arch/arm/boot/zImage /build/linux_regtest/arm/5.16/av
+cp arch/arm/boot/dts/socfpga_arria5_socdk.dtb /build/linux_regtest/arm/5.16/av
+cp drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/5.16/av
+cp drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/5.16/av
+cp drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/5.16/av
 
 echo ">>>>>>> $i DONE <<<<<<"
