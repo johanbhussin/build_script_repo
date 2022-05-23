@@ -24,12 +24,12 @@ make socfpga_cyclone5_socdk.dtb
 make -j 12 modules
 
 echo "Move compiled to folder\n"
-mkdir -p /build/linux_regtest/arm/cv/5.16
+mkdir -p /build/linux_regtest/arm/5.16/cv
 
-cp arch/arm/boot/zImage /build/linux_regtest/arm/cv/5.16
-cp arch/arm/boot/dts/socfpga_cyclone5_socdk.dtb /build/linux_regtest/arm/cv/5.16
-cp drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/cv/5.16
-cp drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/cv/5.16
-cp drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/cv/5.16
+cp arch/arm/boot/zImage /build/linux_regtest/arm/5.16/cv
+cp arch/arm/boot/dts/socfpga_cyclone5_socdk.dtb /build/linux_regtest/arm/5.16/cv
+cp drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/5.16/cv
+cp drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/5.16/cv
+cp drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/5.16/cv
 
 echo ">>>>>>> $i DONE <<<<<<"
