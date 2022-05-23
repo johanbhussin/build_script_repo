@@ -21,18 +21,16 @@ make defconfig_32
 make zImage -j$(($(nproc)))
 make socfpga_arria10_socdk_sdmmc.dtb
 make socfpga_arria10_socdk_qspi.dtb
-
 make -j 12 modules
-mkdir linux_modules
 
 echo "Move compiled to folder\n"
 mkdir -p /build/linux_regtest/arm/a10/5.16
 
-mv arch/arm/boot/zImage /build/linux_regtest/arm/a10/5.16
-mv arch/arm/boot/dts/ socfpga_arria10_socdk_qspi.dtb /build/linux_regtest/arm/a10/5.16
-mv arch/arm/boot/dts/socfpga_arria10_socdk_sdmmc.dtb /build/linux_regtest/arm/a10/5.16
-mv drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/a10/5.16
-mv drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/a10/5.16
-mv drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/a10/5.16
+cp arch/arm/boot/zImage /build/linux_regtest/arm/a10/5.16
+cp arch/arm/boot/dts/socfpga_arria10_socdk_qspi.dtb /build/linux_regtest/arm/a10/5.16
+cp arch/arm/boot/dts/socfpga_arria10_socdk_sdmmc.dtb /build/linux_regtest/arm/a10/5.16
+cp drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm/a10/5.16
+cp drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm/a10/5.16
+cp drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm/a10/5.16
 
 echo ">>>>>>> $i DONE <<<<<<"
