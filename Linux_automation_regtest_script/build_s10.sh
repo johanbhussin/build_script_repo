@@ -1,13 +1,16 @@
 #! /bin/sh
 
+LINUX_VER=5.16
+LINUX_BRANCH=socfpga-${LINUX_VER}
+
 mkdir -p /build/linux_regtest
 cd /build/linux_regtest
 
-echo "cloning repo linux-bringup\n"
-git clone --single-branch --branch socfpga-5.16_regression_test_defconfig https://github.com/intel-sandbox/linux-bringup
+#echo "cloning repo linux-bringup\n"
+#git clone --single-branch --branch socfpga-5.16_regression_test_defconfig https://github.com/intel-sandbox/linux-bringup
 
 echo "cloning repo linux-socfpga\n"
-git clone --single-branch --branch socfpga-5.16 https://github.com/intel-innersource/applications.fpga.soc.linux-socfpga
+git clone --single-branch --branch $LINUX_BRANCH https://github.com/intel-innersource/applications.fpga.soc.linux-socfpga
 
 echo "copying modified defconfig from linux bringup to linux-socfpga"
 cp /build/linux_regtest/linux-bringup/arch/arm64/configs/socfpga_allyes_defconfig /build/linux_regtest/applications.fpga.soc.linux-socfpga/arch/arm64/configs/
@@ -37,7 +40,7 @@ cp /build/linux_build/s10_uboot/s10_soc_devkit_ghrd_atfbl31/2021.04/341/u-boot.d
 cp kernel.itb kernel_sd.itb
 
 # build kernel Image with disable QSPI 4k sector
-echo "CONFIG_MTD_SPI_NOR_USE_4K_SECTORS=n" >> arch/arm64/configs/socfpga_allyes_defconfig
+echo "CONFIG_MTD_SPI_NOR_USE_4K_SECTORS=n" >> arch/arm64/configs/defconfig_64
 make socfpga_allyes_defconfig
 make Image -j$(($(nproc)))
 
@@ -51,16 +54,16 @@ cp /build/linux_build/s10_uboot/s10_soc_qspi_devkit_ghrd_atfbl31/2021.04/278/u-b
 cp kernel.itb kernel_qspi.itb
 
 echo "Move compiled to folder\n"
-mkdir -p /build/linux_regtest/arm64/5.16/s10
+mkdir -p /build/linux_regtest/arm64/$$LINUX_VER/s10
 
-mv Image_sd /build/linux_regtest/arm64/5.16/s10/Image
-mv Image_qspi /build/linux_regtest/arm64/5.16/s10
-mv kernel_sd.itb /build/linux_regtest/arm64/5.16/s10/kernel.itb
-mv kernel_qspi.itb /build/linux_regtest/arm64/5.16/s10
-mv arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dtb /build/linux_regtest/arm64/5.16/s10
-mv drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm64/5.16/s10
-mv drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm64/5.16/s10
-mv drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm64/5.16/s10
-mv drivers/firmware/stratix10-rsu.ko /build/linux_regtest/arm64/5.16/s10
+mv Image_sd /build/linux_regtest/arm64/$LINUX_VER/s10/Image
+mv Image_qspi /build/linux_regtest/arm64/$LINUX_VER/s10
+mv kernel_sd.itb /build/linux_regtest/arm64/$LINUX_VER/s10/kernel.itb
+mv kernel_qspi.itb /build/linux_regtest/arm64/$LINUX_VER/s10
+mv arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dtb /build/linux_regtest/arm64/$LINUX_VER/s10
+mv drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm64/$LINUX_VER/s10
+mv drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm64/$LINUX_VER/s10
+mv drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm64/$LINUX_VER/s10
+mv drivers/firmware/stratix10-rsu.ko /build/linux_regtest/arm64/$LINUX_VER/s10
 
 echo ">>>>>>> $i DONE <<<<<<"
