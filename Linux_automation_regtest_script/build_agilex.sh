@@ -1,5 +1,8 @@
 #! /bin/sh
 
+LINUX_VER=5.16
+LINUX_BRANCH=socfpga-${LINUX_VER}
+
 mkdir -p /build/linux_regtest
 cd /build/linux_regtest
 
@@ -7,10 +10,11 @@ echo "cloning repo linux-bringup\n"
 git clone --single-branch --branch socfpga-5.16_regression_test_defconfig https://github.com/intel-sandbox/linux-bringup
 
 echo "cloning repo linux-socfpga\n"
-git clone --single-branch --branch socfpga-5.16 https://github.com/intel-innersource/applications.fpga.soc.linux-socfpga
+git clone --single-branch --branch $LINUX_BRANCH https://github.com/intel-innersource/applications.fpga.soc.linux-socfpga
 
 echo "copying modified defconfig from linux bringup to linux-socfpga"
-cp /build/linux_regtest/linux-bringup/arch/arm64/configs/socfpga_allyes_defconfig /build/linux_regtest/applications.fpga.soc.linux-socfpga/arch/arm64/configs/
+#cp /build/linux_regtest/linux-bringup/arch/arm64/configs/socfpga_allyes_defconfig /build/linux_regtest/applications.fpga.soc.linux-socfpga/arch/arm64/configs/
+cp https://psg-png-arc.png.intel.com/p/psg/swip/etools/elinux/linux_regtest/defconfig/defconfig_64 /build/linux_regtest/applications.fpga.soc.linux-socfpga/arch/arm64/configs/
 
 echo "Start compiling\n"
 cd /build/linux_regtest/applications.fpga.soc.linux-socfpga/
@@ -53,16 +57,16 @@ cp kernel.itb kernel_qspi.itb
 
 
 echo "Move compiled to folder\n"
-mkdir -p /build/linux_regtest/arm64/5.16/agilex/
+mkdir -p /build/linux_regtest/arm64/$LINUX_VER/agilex/
 
-mv kernel_sd.itb /build/linux_regtest/arm64/5.16/agilex/kernel.itb
-mv kernel_qspi.itb /build/linux_regtest/arm64/5.16/agilex/
-mv Image_sd /build/linux_regtest/arm64/5.16/agilex/Image
-mv Image_qspi /build/linux_regtest/arm64/5.16/agilex/
-mv arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dtb /build/linux_regtest/arm64/5.16/agilex/
-mv drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm64/5.16/agilex/
-mv drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm64/5.16/agilex/
-mv drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm64/5.16/agilex/
-mv drivers/firmware/stratix10-rsu.ko /build/linux_regtest/arm64/5.16/agilex/
+mv kernel_sd.itb /build/linux_regtest/arm64/$LINUX_VER/agilex/kernel.itb
+mv kernel_qspi.itb /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv Image_sd /build/linux_regtest/arm64/$LINUX_VER/agilex/Image
+mv Image_qspi /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dtb /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv drivers/mtd/tests/mtd_readtest.ko /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv drivers/mtd/tests/mtd_stresstest.ko /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv drivers/mtd/tests/mtd_speedtest.ko /build/linux_regtest/arm64/$LINUX_VER/agilex/
+mv drivers/firmware/stratix10-rsu.ko /build/linux_regtest/arm64/$LINUX_VER/agilex/
 
 echo ">>>>>>> $i DONE <<<<<<"
